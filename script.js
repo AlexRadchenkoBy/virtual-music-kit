@@ -5,44 +5,75 @@ newDiv.id = "div-id";
 
 document.body.appendChild(newDiv);
 
-const newButtonA = document.createElement('button');
-newButtonA.textContent = 'A';
-newButtonA.className = 'button';
-newButtonA.id = 'button-id-A';
-newDiv.appendChild(newButtonA);
+const keyA = document.createElement('button');
+keyA.textContent = 'A';
+keyA.className = 'button';
+keyA.setAttribute('data-note', 'C4');
+keyA.setAttribute('data-key', 'keyA');
+newDiv.appendChild(keyA);
 
-const newButtonS = document.createElement('button');
-newButtonS.textContent = 'S';
-newButtonS.className = 'button';
-newButtonS.id = 'button-id-S';
-newDiv.appendChild(newButtonS);
+const keyS = document.createElement('button');
+keyS.textContent = 'S';
+keyS.className = 'button';
+keyS.setAttribute('data-note', 'D4');
+keyS.setAttribute('data-key', 'keyS')
+newDiv.appendChild(keyS);
 
-const newButtonD = document.createElement('button');
-newButtonD.textContent = 'D';
-newButtonD.className = 'button';
-newButtonD.id = 'button-id-D';
-newDiv.appendChild(newButtonD);
+const keyD = document.createElement('button');
+keyD.textContent = 'D';
+keyD.className = 'button';
+keyD.setAttribute('data-note', 'E4');
+keyD.setAttribute('data-key', 'keyD');
+newDiv.appendChild(keyD);
 
-const newButtonF = document.createElement('button');
-newButtonF.textContent = 'F';
-newButtonF.className = 'button';
-newButtonF.id = 'button-id-F';
-newDiv.appendChild(newButtonF);
+const keyF = document.createElement('button');
+keyF.textContent = 'F';
+keyF.className = 'button';
+keyF.setAttribute('data-note', 'F4');
+keyF.setAttribute('data-key', 'keyF');
+newDiv.appendChild(keyF);
 
-const newButtonG = document.createElement('button');
-newButtonG.textContent = 'G';
-newButtonG.className = 'button';
-newButtonG.id = 'button-id-G';
-newDiv.appendChild(newButtonG);
+const keyG = document.createElement('button');
+keyG.textContent = 'G';
+keyG.className = 'button';
+keyF.setAttribute('data-note', 'G4');
+keyF.setAttribute('data-key', 'keyG');;
+newDiv.appendChild(keyG);
 
-const newButtonH = document.createElement('button');
-newButtonH.textContent = 'H';
-newButtonH.className = 'button';
-newButtonH.id = 'button-id-H';
-newDiv.appendChild(newButtonH);
+const keyH = document.createElement('button');
+keyH.textContent = 'H';
+keyH.className = 'button';
+keyH.setAttribute('data-note', 'A4');
+keyH.setAttribute('data-key', 'keyH');
+newDiv.appendChild(keyH);
 
-const newButtonJ = document.createElement('button');
-newButtonJ.textContent = 'J';
-newButtonJ.className = 'button';
-newButtonJ.id = 'button-id-J';
-newDiv.appendChild(newButtonJ);
+const keyJ = document.createElement('button');
+keyJ.textContent = 'J';
+keyJ.className = 'button';
+keyF.setAttribute('data-note', 'B4');
+keyF.setAttribute('data-key', 'keyG');
+newDiv.appendChild(keyJ);
+
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+
+const oscillators = {};
+
+
+const keyToNoteMap = {
+    'KeyA': 'C4',
+    'KeyS': 'D4',
+    'KeyD': 'E4',
+    'KeyF': 'F4',
+    'KeyG': 'G4',
+    'KeyH': 'A4',
+    'KeyJ': 'B4',
+};
+
+const keys = document.querySelectorAll('.button');
+
+function playNote(note) {
+    
+    console.log(`Играет нота: ${note}`);
+    
+}
