@@ -73,7 +73,22 @@ const keyToNoteMap = {
 const keys = document.querySelectorAll('.button');
 
 function playNote(note) {
-    
-    console.log(`Играет нота: ${note}`);
-    
+    const frequency = getFrecuency(note);
+    if (oscillators[note]) {
+        return;
+    }
+
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+
+    oscillator.start(audioContext.currentTime);
+    oscillators[note] = oscillator;
 }
