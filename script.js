@@ -36,8 +36,8 @@ newDiv.appendChild(keyF);
 const keyG = document.createElement('button');
 keyG.textContent = 'G';
 keyG.className = 'button';
-keyF.setAttribute('data-note', 'G4');
-keyF.setAttribute('data-key', 'keyG');;
+keyG.setAttribute('data-note', 'G4');
+keyG.setAttribute('data-key', 'keyG');;
 newDiv.appendChild(keyG);
 
 const keyH = document.createElement('button');
@@ -50,8 +50,8 @@ newDiv.appendChild(keyH);
 const keyJ = document.createElement('button');
 keyJ.textContent = 'J';
 keyJ.className = 'button';
-keyF.setAttribute('data-note', 'B4');
-keyF.setAttribute('data-key', 'keyG');
+keyJ.setAttribute('data-note', 'B4');
+keyJ.setAttribute('data-key', 'keyJ');
 newDiv.appendChild(keyJ);
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -73,7 +73,7 @@ const keyToNoteMap = {
 const keys = document.querySelectorAll('.button');
 
 function playNote(note) {
-    const frequency = getFrecuency(note);
+    const frequency = getFrequency(note);
     if (oscillators[note]) {
         return;
     }
@@ -99,4 +99,17 @@ function stopNote(note) {
     }
     oscillators[note].stop(audioContext.currentTime + 0.1);
     delete oscillators[note];
+}
+
+function getFrequency(note) {
+    const frequencies = {
+      'C4': 261.63,
+      'D4': 293.66,
+      'E4': 329.63,
+      'F4': 349.23,
+      'G4': 392.00,
+      'A4': 440.00,
+      'B4': 493.88
+    };
+    return frequencies[note];
 }
