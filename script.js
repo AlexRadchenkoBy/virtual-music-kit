@@ -92,3 +92,11 @@ function playNote(note) {
     oscillator.start(audioContext.currentTime);
     oscillators[note] = oscillator;
 }
+
+function stopNote(note) {
+    if (!oscillators[note]) {
+        return;
+    }
+    oscillators[note].stop(audioContext.currentTime + 0.1);
+    delete oscillators[note];
+}
