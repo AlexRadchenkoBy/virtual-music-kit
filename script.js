@@ -113,3 +113,108 @@ function getFrequency(note) {
     };
     return frequencies[note];
 }
+
+keyA.addEventListener('mousedown', function() {
+    playNote('C4');
+});
+
+keyA.addEventListener('mouseup', function() {
+    stopNote('C4');
+});
+
+keyS.addEventListener('mousedown', function() {
+    playNote('D4');
+});
+
+keyS.addEventListener('mouseup', function() {
+    stopNote('D4');
+});
+
+keyD.addEventListener('mousedown', function() {
+    playNote('E4');
+});
+
+keyD.addEventListener('mouseup', function() {
+    stopNote('E4');
+});
+
+keyF.addEventListener('mousedown', function() {
+    playNote('F4');
+});
+
+keyF.addEventListener('mouseup', function() {
+    stopNote('F4');
+});
+
+keyG.addEventListener('mousedown', function() {
+    playNote('G4');
+});
+
+keyG.addEventListener('mouseup', function() {
+    stopNote('G4');
+});
+
+keyH.addEventListener('mousedown', function() {
+    playNote('A4');
+});
+
+keyH.addEventListener('mouseup', function() {
+    stopNote('A4');
+});
+
+keyJ.addEventListener('mousedown', function() {
+    playNote('B4');
+});
+
+keyJ.addEventListener('mouseup', function() {
+    stopNote('B4');
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'KeyA') {
+        playNote('C4');
+    }
+    if (event.code === 'KeyS') {
+        playNote('D4');
+    }
+    if (event.code === 'KeyD') {
+        playNote('E4');
+    }
+    if (event.code === 'KeyF') {
+        playNote('F4');
+    }
+    if (event.code === 'KeyG') {
+        playNote('G4');
+    }
+    if (event.code === 'KeyH') {
+        playNote('A4');
+    }
+    if (event.code === 'KeyJ') {
+        playNote('B4');
+    }
+});
+
+document.addEventListener('keyup', function(event) {
+    if (event.code === 'KeyA') {
+        stopNote('C4');
+    }
+    if (event.code === 'KeyS') {
+        stopNote('D4');
+    }
+    if (event.code === 'KeyD') {
+        stopNote('E4');
+    }
+    if (event.code === 'KeyF') {
+        stopNote('F4');
+    }
+    if (event.code === 'KeyG') {
+        stopNote('G4');
+    }
+    if (event.code === 'KeyH') {
+        stopNote('A4');
+    }
+    if (event.code === 'KeyJ') {
+        stopNote('B4');
+    }
+});
+
