@@ -202,4 +202,62 @@ body.sequence-playing {
     
 body.sequence-playing .button {
     cursor: wait;
+
+}
+
+@media (min-width: 768px) {
+    body {
+        padding: 25px;
+    }
+    
+    .class-div {
+        max-width: 700px;
+        gap: 12px;
+        padding: 20px;
+    }
+    
+    .button {
+        width: 55px;
+        height: 180px;
+        font-size: 16px;
+    }
+    
+    .sequence-container {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .class-div {
+        max-width: 800px;
+        gap: 15px;
+        padding: 25px;
+    }
+    
+    .button {
+        width: 65px;
+        height: 200px;
+        font-size: 18px;
+    }
+    
+    .sequence-container {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 10px;
+    }
+    
+    .class-div {
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    .button {
+        width: 40px;
+        height: 130px;
+        font-size: 12px;
+    }
 }
