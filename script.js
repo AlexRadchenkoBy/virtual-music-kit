@@ -351,7 +351,7 @@ document.body.appendChild(sequenceContainer);
 const sequenceInput = document.createElement("input");
 sequenceInput.type = "text";
 sequenceInput.className = "sequence-input";
-sequenceInput.placeholder = "Enter sequence (e.g., ASDFG)";
+sequenceInput.placeholder = "Enter sequence (ASDFG)";
 sequenceInput.maxLength = 14; 
 sequenceContainer.appendChild(sequenceInput);
 
@@ -360,4 +360,136 @@ playSequenceBtn.className = "play-sequence-btn";
 playSequenceBtn.textContent = "Play Sequence";
 sequenceContainer.appendChild(playSequenceBtn);
 
+let isPlayingSequence = false;
+let sequenceTimeout = null;
 
+function getCharToNoteMap() {
+    const charMap = {};
+    Object.keys(keyToNoteMap).forEach(key => {
+        const char = key.replace('Key', '');
+        charMap[char] = keyToNoteMap[key];
+    });
+    return charMap;
+}
+
+function isValidKeyChar(char) {
+    const charMap = getCharToNoteMap();
+    return char.toUpperCase() in charMap;
+}
+
+function filterSequenceInput(input) {
+    const charMap = getCharToNoteMap();
+    const validChars = Object.keys(charMap);
+    
+    return input
+        .toUpperCase()
+        .split('')
+        .filter(char => validChars.includes(char))
+        .join('')
+        .substring(0, 14); 
+}
+
+sequenceInput.addEventListener('input', function() {
+    const filtered = filterSequenceInput(this.value);
+    if (this.value !== filtered) {
+        this.value = filtered;
+    }
+});
+
+function playSequence() {
+    if (isPlayingSequence) return;
+    
+    const sequence = sequenceInput.value.toUpperCase();
+    if (!sequence) return;
+    
+    isPlayingSequence = true;
+    disableInterface(true);
+    
+    const charMap = getCharToNoteMap();
+    const notes = sequence.split('').map(char => charMap[char]);
+    
+    let index = 0;
+    
+    function playNextNote() {
+        if (index >= notes.length) {
+            isPlayingSequence = false;
+            disableInterface(false);
+            return;
+        }
+        
+        const note = notes[index];
+        playNote(note);
+        
+        setTimeout(() => {
+            stopNote(note);
+        }, 300);
+        
+        index++;
+        
+        sequenceTimeout = setTimeout(playNextNote, 500);
+    }
+    
+    playNextNote();
+}
+
+function disableInterface(disabled) {
+    
+    sequenceInput.disabled = disabled;
+    
+  
+    playSequenceBtn.disabled = disabled;
+
+    keys.forEach(key => {
+        if (disabled) {
+            key.style.pointerEvents = 'none';
+            key.classList.add('disabled');
+        } else {
+            key.style.pointerEvents = 'auto';
+            key.classList.remove('disabled');
+        }
+    });
+
+document.querySelectorAll('.edit-icon').forEach(icon => {
+        if (disabled) {
+            icon.style.pointerEvents = 'none';
+            icon.classList.add('disabled');
+        } else {
+            icon.style.pointerEvents = 'auto';
+            icon.classList.remove('disabled');
+        }
+});
+
+if (disabled) {
+        document.body.classList.add('sequence-playing');
+    } else {
+        document.body.classList.remove('sequence-playing');
+    }
+}
+
+playSequenceBtn.addEventListener('click', playSequence);
+
+sequenceInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && !isPlayingSequence) {
+        playSequence();
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && isPlayingSequence) {
+        stopSequence();
+    }
+});
+
+function stopSequence() {
+    if (sequenceTimeout) {
+        clearTimeout(sequenceTimeout);
+        sequenceTimeout = null;
+    }
+    
+    Object.keys(oscillators).forEach(note => {
+        stopNote(note);
+    });
+    
+    isPlayingSequence = false;
+    disableInterface(false);
+}
