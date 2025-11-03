@@ -15,7 +15,7 @@ editInput.placeholder = "Press the new key and Enter";
 editContainer.appendChild(editInput);
 
 const keyA = document.createElement('button');
-keyA.innerHTML = '<span>A</span><div class="edit-icon">edit</div>';
+keyA.innerHTML = '<span>A</span><div class="edit-icon">✏️</div>';
 keyA.className = 'button';
 keyA.setAttribute('data-note', 'C4');
 keyA.setAttribute('data-key', 'keyA');
@@ -77,6 +77,16 @@ const keyToNoteMap = {
     'KeyG': 'G4',
     'KeyH': 'A4',
     'KeyJ': 'B4',
+};
+
+const noteToKeyMap = {
+    'C4': 'KeyA',
+    'D4': 'KeyS',
+    'E4': 'KeyD',
+    'F4': 'KeyF',
+    'G4': 'KeyG',
+    'A4': 'KeyH',
+    'B4': 'KeyJ'
 };
 
 const keys = document.querySelectorAll('.button');
