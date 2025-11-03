@@ -319,50 +319,23 @@ keys.forEach(button => {
 keys.forEach(addHoverEffect);
 
 document.addEventListener('keydown', function(event) {
-    if (event.code === 'KeyA') {
-        playNote('C4');
+    if (editContainer.style.display === 'block') {
+        return;
     }
-    if (event.code === 'KeyS') {
-        playNote('D4');
-    }
-    if (event.code === 'KeyD') {
-        playNote('E4');
-    }
-    if (event.code === 'KeyF') {
-        playNote('F4');
-    }
-    if (event.code === 'KeyG') {
-        playNote('G4');
-    }
-    if (event.code === 'KeyH') {
-        playNote('A4');
-    }
-    if (event.code === 'KeyJ') {
-        playNote('B4');
+    const note = keyToNoteMap[event.code];
+    if (note && !oscillators[note]) {
+        playNote(note);
     }
 });
 
 document.addEventListener('keyup', function(event) {
-    if (event.code === 'KeyA') {
-        stopNote('C4');
+    if (editContainer.style.display === 'block') {
+        return;
     }
-    if (event.code === 'KeyS') {
-        stopNote('D4');
-    }
-    if (event.code === 'KeyD') {
-        stopNote('E4');
-    }
-    if (event.code === 'KeyF') {
-        stopNote('F4');
-    }
-    if (event.code === 'KeyG') {
-        stopNote('G4');
-    }
-    if (event.code === 'KeyH') {
-        stopNote('A4');
-    }
-    if (event.code === 'KeyJ') {
-        stopNote('B4');
+    
+    const note = keyToNoteMap[event.code];
+    if (note) {
+        stopNote(note);
     }
 });
 
