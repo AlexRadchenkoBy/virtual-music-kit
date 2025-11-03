@@ -1,9 +1,12 @@
 const newDiv = document.createElement("div");
-
 newDiv.className = "class-div";
 newDiv.id = "div-id";
-
 document.body.appendChild(newDiv);
+
+const editContainer = document.createElement('div');
+editContainer.className = 'edit-container';
+editContainer.style.display = 'none';
+document.body.appendChild(editContainer);
 
 const keyA = document.createElement('button');
 keyA.textContent = 'A';
