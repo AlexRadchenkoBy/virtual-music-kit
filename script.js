@@ -18,49 +18,49 @@ const keyA = document.createElement('button');
 keyA.innerHTML = '<span>A</span><div class="edit-icon">✏️</div>';
 keyA.className = 'button';
 keyA.setAttribute('data-note', 'C4');
-keyA.setAttribute('data-key', 'keyA');
+keyA.setAttribute('data-key', 'KeyA');
 newDiv.appendChild(keyA);
 
 const keyS = document.createElement('button');
 keyS.innerHTML = '<span>S</span><div class="edit-icon">✏️</div>';
 keyS.className = 'button';
 keyS.setAttribute('data-note', 'D4');
-keyS.setAttribute('data-key', 'keyS')
+keyS.setAttribute('data-key', 'KeyS')
 newDiv.appendChild(keyS);
 
 const keyD = document.createElement('button');
 keyD.innerHTML = '<span>D</span><div class="edit-icon">✏️</div>';
 keyD.className = 'button';
 keyD.setAttribute('data-note', 'E4');
-keyD.setAttribute('data-key', 'keyD');
+keyD.setAttribute('data-key', 'KeyD');
 newDiv.appendChild(keyD);
 
 const keyF = document.createElement('button');
 keyF.innerHTML = '<span>F</span><div class="edit-icon">✏️</div>';
 keyF.className = 'button';
 keyF.setAttribute('data-note', 'F4');
-keyF.setAttribute('data-key', 'keyF');
+keyF.setAttribute('data-key', 'KeyF');
 newDiv.appendChild(keyF);
 
 const keyG = document.createElement('button');
 keyG.innerHTML = '<span>G</span><div class="edit-icon">✏️</div>';
 keyG.className = 'button';
 keyG.setAttribute('data-note', 'G4');
-keyG.setAttribute('data-key', 'keyG');;
+keyG.setAttribute('data-key', 'KeyG');;
 newDiv.appendChild(keyG);
 
 const keyH = document.createElement('button');
 keyH.innerHTML = '<span>H</span><div class="edit-icon">✏️</div>';
 keyH.className = 'button';
 keyH.setAttribute('data-note', 'A4');
-keyH.setAttribute('data-key', 'keyH');
+keyH.setAttribute('data-key', 'KeyH');
 newDiv.appendChild(keyH);
 
 const keyJ = document.createElement('button');
 keyJ.innerHTML = '<span>J</span><div class="edit-icon">✏️</div>';
 keyJ.className = 'button';
 keyJ.setAttribute('data-note', 'B4');
-keyJ.setAttribute('data-key', 'keyJ');
+keyJ.setAttribute('data-key', 'KeyJ');
 newDiv.appendChild(keyJ);
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -164,7 +164,7 @@ function getFrequency(note) {
     return frequencies[note];
 }
 
-let currentEditingNote = note;
+let currentEditingNote = null;
 
 function showEditInput(note, buttonElement) {
     currentEditingNote = note;
@@ -214,16 +214,16 @@ function updateKeyBinding(note, newKey) {
 
 editInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
+        event.preventDefault(); 
         const newKey = editInput.value.trim().toUpperCase();
         if (newKey && currentEditingNote) {
-
             const keyCode = 'Key' + newKey;
-            
             if (updateKeyBinding(currentEditingNote, keyCode)) {
                 hideEditInput();
             }
         }
     } else if (event.key === 'Escape') {
+        event.preventDefault();
         hideEditInput();
     } else {
         if (event.code && event.code.startsWith('Key')) {
@@ -233,9 +233,8 @@ editInput.addEventListener('keydown', function(event) {
     }
 });
 
-
 keyA.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('C4');
     }
 });
@@ -245,7 +244,7 @@ keyA.addEventListener('mouseup', function() {
 });
 
 keyS.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (!editContainer.style.display !== 'block') {
         playNote('D4');
     }
 });
@@ -255,7 +254,7 @@ keyS.addEventListener('mouseup', function() {
 });
 
 keyD.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (!editContainer.style.display !== 'block') {
         playNote('E4');
     }
 });
@@ -265,7 +264,7 @@ keyD.addEventListener('mouseup', function() {
 });
 
 keyF.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (!editContainer.style.display !== 'block') {
         playNote('F4');
     }
 });
@@ -275,7 +274,7 @@ keyF.addEventListener('mouseup', function() {
 });
 
 keyG.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (!editContainer.style.display !== 'block') {
         playNote('G4');
     }
 });
@@ -285,7 +284,7 @@ keyG.addEventListener('mouseup', function() {
 });
 
 keyH.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (!editContainer.style.display !== 'block') {
         playNote('A4');
     }
 });
@@ -295,7 +294,7 @@ keyH.addEventListener('mouseup', function() {
 });
 
 keyJ.addEventListener('mousedown', function() {
-    if (!editContainer.style.display === 'block') {
+    if (!editContainer.style.display !== 'block') {
         playNote('B4');
     }
 });
@@ -303,8 +302,6 @@ keyJ.addEventListener('mousedown', function() {
 keyJ.addEventListener('mouseup', function() {
     stopNote('B4');
 });
-
-keys.forEach(addHoverEffect);
 
 keys.forEach(button => {
     const editIcon = button.querySelector('.edit-icon');
@@ -336,6 +333,14 @@ document.addEventListener('keyup', function(event) {
     const note = keyToNoteMap[event.code];
     if (note) {
         stopNote(note);
+    }
+});
+
+document.addEventListener('click', function(event) {
+    if (!editContainer.contains(event.target) && 
+        !event.target.classList.contains('edit-icon') &&
+        editContainer.style.display === 'block') {
+        hideEditInput();
     }
 });
 
