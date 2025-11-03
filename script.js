@@ -15,49 +15,49 @@ editInput.placeholder = "Press the new key and Enter";
 editContainer.appendChild(editInput);
 
 const keyA = document.createElement('button');
-keyA.textContent = 'A';
+keyA.innerHTML = '<span>A</span><div class="edit-icon">edit</div>';
 keyA.className = 'button';
 keyA.setAttribute('data-note', 'C4');
 keyA.setAttribute('data-key', 'keyA');
 newDiv.appendChild(keyA);
 
 const keyS = document.createElement('button');
-keyS.textContent = 'S';
+keyS.innerHTML = '<span>S</span><div class="edit-icon">✏️</div>';
 keyS.className = 'button';
 keyS.setAttribute('data-note', 'D4');
 keyS.setAttribute('data-key', 'keyS')
 newDiv.appendChild(keyS);
 
 const keyD = document.createElement('button');
-keyD.textContent = 'D';
+keyD.innerHTML = '<span>D</span><div class="edit-icon">✏️</div>';
 keyD.className = 'button';
 keyD.setAttribute('data-note', 'E4');
 keyD.setAttribute('data-key', 'keyD');
 newDiv.appendChild(keyD);
 
 const keyF = document.createElement('button');
-keyF.textContent = 'F';
+keyF.innerHTML = '<span>F</span><div class="edit-icon">✏️</div>';
 keyF.className = 'button';
 keyF.setAttribute('data-note', 'F4');
 keyF.setAttribute('data-key', 'keyF');
 newDiv.appendChild(keyF);
 
 const keyG = document.createElement('button');
-keyG.textContent = 'G';
+keyG.innerHTML = '<span>G</span><div class="edit-icon">✏️</div>';
 keyG.className = 'button';
 keyG.setAttribute('data-note', 'G4');
 keyG.setAttribute('data-key', 'keyG');;
 newDiv.appendChild(keyG);
 
 const keyH = document.createElement('button');
-keyH.textContent = 'H';
+keyH.innerHTML = '<span>H</span><div class="edit-icon">✏️</div>';
 keyH.className = 'button';
 keyH.setAttribute('data-note', 'A4');
 keyH.setAttribute('data-key', 'keyH');
 newDiv.appendChild(keyH);
 
 const keyJ = document.createElement('button');
-keyJ.textContent = 'J';
+keyJ.innerHTML = '<span>J</span><div class="edit-icon">✏️</div>';
 keyJ.className = 'button';
 keyJ.setAttribute('data-note', 'B4');
 keyJ.setAttribute('data-key', 'keyJ');
