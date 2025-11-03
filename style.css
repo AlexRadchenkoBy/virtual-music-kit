@@ -33,14 +33,44 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: #333;
+    position: relative;
 }
 
 .button:hover {
-    background: #f0f0f0;
+    background: white;
 }
 
-.button:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    background: #e0e0e0;
+.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    transition: height 0.2s ease;
+    z-index: 1;
+    border-radius: 0 0 5px 5px;
+}
+
+.button.hover::before {
+    height: 30%;
+    background: linear-gradient(145deg, #21f34b, #32d219);
+}
+
+.button.active::before {
+    height: 100%;
+    background: linear-gradient(145deg, #5922ff, #E64A19);
+}
+
+.button.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    border-radius: 0 0 5px 5px;
 }

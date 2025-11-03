@@ -72,6 +72,33 @@ const keyToNoteMap = {
 
 const keys = document.querySelectorAll('.button');
 
+function activateButton(note) {
+    const button = document.querySelector(`[data-note="${note}"]`);
+    if (button) {
+        button.classList.add('active');
+        button.classList.remove('hover');
+    }
+}
+
+function deactivateButton(note) {
+    const button = document.querySelector(`[data-note="${note}"]`);
+    if (button) {
+        button.classList.remove('active');
+    }
+}
+
+function addHoverEffect(button) {
+    button.addEventListener('mouseenter', function() {
+        if (!this.classList.contains('active')) {
+            this.classList.add('hover');
+        }
+    });
+    
+    button.addEventListener('mouseleave', function() {
+        this.classList.remove('hover');
+    });
+}
+
 function playNote(note) {
     const frequency = getFrequency(note);
     if (oscillators[note]) {
@@ -91,6 +118,8 @@ function playNote(note) {
 
     oscillator.start(audioContext.currentTime);
     oscillators[note] = oscillator;
+
+     activateButton(note);
 }
 
 function stopNote(note) {
@@ -99,6 +128,8 @@ function stopNote(note) {
     }
     oscillators[note].stop(audioContext.currentTime + 0.1);
     delete oscillators[note];
+
+    deactivateButton(note);
 }
 
 function getFrequency(note) {
@@ -169,6 +200,8 @@ keyJ.addEventListener('mousedown', function() {
 keyJ.addEventListener('mouseup', function() {
     stopNote('B4');
 });
+
+keys.forEach(addHoverEffect);
 
 document.addEventListener('keydown', function(event) {
     if (event.code === 'KeyA') {
