@@ -306,6 +306,18 @@ keyJ.addEventListener('mouseup', function() {
 
 keys.forEach(addHoverEffect);
 
+keys.forEach(button => {
+    const editIcon = button.querySelector('.edit-icon');
+    const note = button.getAttribute('data-note');
+    
+    editIcon.addEventListener('click', function(event) {
+        event.stopPropagation();
+        showEditInput(note, button);
+    });
+});
+
+keys.forEach(addHoverEffect);
+
 document.addEventListener('keydown', function(event) {
     if (event.code === 'KeyA') {
         playNote('C4');
