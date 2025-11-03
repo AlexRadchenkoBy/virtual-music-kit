@@ -164,6 +164,76 @@ function getFrequency(note) {
     return frequencies[note];
 }
 
+let currentEditingNote = note;
+
+function showEditInput(note, buttonElement) {
+    currentEditingNote = note;
+    const rect = buttonElement.getBoundingClientRect();
+
+    editContainer.style.display = 'block';
+    editContainer.style.position = 'absolute';
+    editContainer.style.left = (window.innerWidth/2 - 125) + 'px';
+    editContainer.style.top = (rect.bottom + 20) + 'px';
+    editInput.value = '';
+    editInput.focus();
+    
+    const currentKey = noteToKeyMap[note];
+    const keyDisplay = currentKey.replace('Key', '');
+    editInput.placeholder = `Current: ${keyDisplay}. press the new key`;
+}
+
+function hideEditInput() {
+    editContainer.style.display = 'none';
+    currentEditingNote = null;
+}
+
+function updateKeyBinding(note, newKey) {
+    if (keyToNoteMap[newKey] && keyToNoteMap[newKey] !== note) {
+        alert(`Key "${newKey.replace('Key', '')}" already used for another note!`);
+        return false;
+    }
+
+    const oldKey = noteToKeyMap[note];
+    if (oldKey) {
+        delete keyToNoteMap[oldKey];
+    }
+    
+    keyToNoteMap[newKey] = note;
+    noteToKeyMap[note] = newKey;
+    
+    const button = document.querySelector(`[data-note="${note}"]`);
+    if (button) {
+        button.setAttribute('data-key', newKey);
+    }
+    
+    const displayKey = newKey.replace('Key', '');
+    button.querySelector('span').textContent = displayKey;
+    
+    return true;
+}
+
+editInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        const newKey = editInput.value.trim().toUpperCase();
+        if (newKey && currentEditingNote) {
+
+            const keyCode = 'Key' + newKey;
+            
+            if (updateKeyBinding(currentEditingNote, keyCode)) {
+                hideEditInput();
+            }
+        }
+    } else if (event.key === 'Escape') {
+        hideEditInput();
+    } else {
+        if (event.code && event.code.startsWith('Key')) {
+            editInput.value = event.code.replace('Key', '');
+            event.preventDefault();
+        }
+    }
+});
+
+
 keyA.addEventListener('mousedown', function() {
     playNote('C4');
 });

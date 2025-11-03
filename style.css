@@ -74,3 +74,8 @@ body {
     z-index: 2;
     border-radius: 0 0 5px 5px;
 }
+
+ .button span {
+        position: relative;
+        z-index: 3;
+    }
