@@ -1,0 +1,263 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    position: relative;
+}
+
+.class-div {
+    display: flex;
+    background: #000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    gap: 10px;
+}
+
+.button {
+    width: 60px;
+    height: 200px;
+    margin: 0 2px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+}
+
+.button:hover {
+    background: white;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    transition: height 0.2s ease;
+    z-index: 1;
+    border-radius: 0 0 5px 5px;
+}
+
+.button.hover::before {
+    height: 30%;
+    background: linear-gradient(145deg, #21f34b, #32d219);
+}
+
+.button.active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.button.active::before {
+    height: 100%;
+    background: linear-gradient(145deg, #5922ff, #E64A19);
+}
+
+.button.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    border-radius: 0 0 5px 5px;
+}
+
+ .button span {
+    position: relative;
+    z-index: 3;
+}
+
+.edit-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 4;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+    
+.edit-icon:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.edit-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+    
+.edit-input {
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 250px;
+    text-align: center;
+ }
+    
+.edit-input:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+.sequence-container {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 300px;
+}
+    
+.sequence-input {
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 250px;
+    text-align: center;
+    background: white;
+}
+    
+.sequence-input:focus {
+    outline: none;
+     border-color: #2196F3;
+}
+    
+.sequence-input:disabled {
+    background: #f0f0f0;
+    border-color: #ccc;
+    color: #999;
+}
+    
+.play-sequence-btn {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+    
+.play-sequence-btn:hover:not(:disabled) {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+    
+.play-sequence-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+    
+.play-sequence-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+    
+.button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+    
+.edit-icon.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+    
+body.sequence-playing {
+    cursor: wait;
+}
+    
+body.sequence-playing .button {
+    cursor: wait;
+
+}
+
+@media (min-width: 768px) {
+    body {
+        padding: 25px;
+    }
+    
+    .class-div {
+        max-width: 700px;
+        gap: 12px;
+        padding: 20px;
+    }
+    
+    .button {
+        width: 55px;
+        height: 180px;
+        font-size: 16px;
+    }
+    
+    .sequence-container {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .class-div {
+        max-width: 800px;
+        gap: 15px;
+        padding: 25px;
+    }
+    
+    .button {
+        width: 65px;
+        height: 200px;
+        font-size: 18px;
+    }
+    
+    .sequence-container {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 10px;
+    }
+    
+    .class-div {
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    .button {
+        width: 40px;
+        height: 130px;
+        font-size: 12px;
+    }
+}
