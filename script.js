@@ -344,3 +344,20 @@ document.addEventListener('click', function(event) {
     }
 });
 
+const sequenceContainer = document.createElement("div");
+sequenceContainer.className = "sequence-container";
+document.body.appendChild(sequenceContainer);
+
+const sequenceInput = document.createElement("input");
+sequenceInput.type = "text";
+sequenceInput.className = "sequence-input";
+sequenceInput.placeholder = "Enter sequence (e.g., ASDFG)";
+sequenceInput.maxLength = 14; 
+sequenceContainer.appendChild(sequenceInput);
+
+const playSequenceBtn = document.createElement("button");
+playSequenceBtn.className = "play-sequence-btn";
+playSequenceBtn.textContent = "Play Sequence";
+sequenceContainer.appendChild(playSequenceBtn);
+
+
