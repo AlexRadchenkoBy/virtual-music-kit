@@ -8,6 +8,12 @@ editContainer.className = 'edit-container';
 editContainer.style.display = 'none';
 document.body.appendChild(editContainer);
 
+const editInput = document.createElement("input");
+editInput.type = "text";
+editInput.className = "edit-input";
+editInput.placeholder = "Press the new key and Enter";
+editContainer.appendChild(editInput);
+
 const keyA = document.createElement('button');
 keyA.textContent = 'A';
 keyA.className = 'button';
