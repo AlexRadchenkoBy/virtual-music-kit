@@ -235,7 +235,9 @@ editInput.addEventListener('keydown', function(event) {
 
 
 keyA.addEventListener('mousedown', function() {
-    playNote('C4');
+    if (!editContainer.style.display === 'block') {
+        playNote('C4');
+    }
 });
 
 keyA.addEventListener('mouseup', function() {
@@ -243,7 +245,9 @@ keyA.addEventListener('mouseup', function() {
 });
 
 keyS.addEventListener('mousedown', function() {
-    playNote('D4');
+    if (!editContainer.style.display === 'block') {
+        playNote('D4');
+    }
 });
 
 keyS.addEventListener('mouseup', function() {
@@ -251,7 +255,9 @@ keyS.addEventListener('mouseup', function() {
 });
 
 keyD.addEventListener('mousedown', function() {
-    playNote('E4');
+    if (!editContainer.style.display === 'block') {
+        playNote('E4');
+    }
 });
 
 keyD.addEventListener('mouseup', function() {
@@ -259,7 +265,9 @@ keyD.addEventListener('mouseup', function() {
 });
 
 keyF.addEventListener('mousedown', function() {
-    playNote('F4');
+    if (!editContainer.style.display === 'block') {
+        playNote('F4');
+    }
 });
 
 keyF.addEventListener('mouseup', function() {
@@ -267,7 +275,9 @@ keyF.addEventListener('mouseup', function() {
 });
 
 keyG.addEventListener('mousedown', function() {
-    playNote('G4');
+    if (!editContainer.style.display === 'block') {
+        playNote('G4');
+    }
 });
 
 keyG.addEventListener('mouseup', function() {
@@ -275,7 +285,9 @@ keyG.addEventListener('mouseup', function() {
 });
 
 keyH.addEventListener('mousedown', function() {
-    playNote('A4');
+    if (!editContainer.style.display === 'block') {
+        playNote('A4');
+    }
 });
 
 keyH.addEventListener('mouseup', function() {
@@ -283,7 +295,9 @@ keyH.addEventListener('mouseup', function() {
 });
 
 keyJ.addEventListener('mousedown', function() {
-    playNote('B4');
+    if (!editContainer.style.display === 'block') {
+        playNote('B4');
+    }
 });
 
 keyJ.addEventListener('mouseup', function() {
