@@ -5,7 +5,6 @@ document.body.appendChild(newDiv);
 
 const editContainer = document.createElement('div');
 editContainer.className = 'edit-container';
-editContainer.style.display = 'none';
 document.body.appendChild(editContainer);
 
 const editInput = document.createElement("input");
@@ -14,11 +13,39 @@ editInput.className = "edit-input";
 editInput.placeholder = "Press the new key and Enter";
 editContainer.appendChild(editInput);
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+
+const oscillators = {};
+
+ const keyToNoteMap = {
+    'KeyA': 'C4',
+    'KeyS': 'D4',
+    'KeyD': 'E4',
+    'KeyF': 'F4',
+    'KeyG': 'G4',
+    'KeyH': 'A4',
+    'KeyJ': 'B4',
+};
+
+const noteToKeyMap = {
+    'C4': 'KeyA',
+    'D4': 'KeyS',
+    'E4': 'KeyD',
+    'F4': 'KeyF',
+    'G4': 'KeyG',
+    'A4': 'KeyH',
+    'B4': 'KeyJ'
+};
+
+let isPlayingSequence = false;
+let sequenceTimeout = null;
+
 const keyA = document.createElement('button');
 keyA.innerHTML = '<span>A</span><div class="edit-icon">✏️</div>';
 keyA.className = 'button';
 keyA.setAttribute('data-note', 'C4');
-keyA.setAttribute('data-key', 'KeyA');
+ keyA.setAttribute('data-key', 'KeyA');
 newDiv.appendChild(keyA);
 
 const keyS = document.createElement('button');
@@ -46,7 +73,7 @@ const keyG = document.createElement('button');
 keyG.innerHTML = '<span>G</span><div class="edit-icon">✏️</div>';
 keyG.className = 'button';
 keyG.setAttribute('data-note', 'G4');
-keyG.setAttribute('data-key', 'KeyG');;
+keyG.setAttribute('data-key', 'KeyG');
 newDiv.appendChild(keyG);
 
 const keyH = document.createElement('button');
@@ -62,32 +89,6 @@ keyJ.className = 'button';
 keyJ.setAttribute('data-note', 'B4');
 keyJ.setAttribute('data-key', 'KeyJ');
 newDiv.appendChild(keyJ);
-
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
-
-const oscillators = {};
-
-
-const keyToNoteMap = {
-    'KeyA': 'C4',
-    'KeyS': 'D4',
-    'KeyD': 'E4',
-    'KeyF': 'F4',
-    'KeyG': 'G4',
-    'KeyH': 'A4',
-    'KeyJ': 'B4',
-};
-
-const noteToKeyMap = {
-    'C4': 'KeyA',
-    'D4': 'KeyS',
-    'E4': 'KeyD',
-    'F4': 'KeyF',
-    'G4': 'KeyG',
-    'A4': 'KeyH',
-    'B4': 'KeyJ'
-};
 
 const keys = document.querySelectorAll('.button');
 
@@ -112,9 +113,9 @@ function addHoverEffect(button) {
             this.classList.add('hover');
         }
     });
-    
+            
     button.addEventListener('mouseleave', function() {
-        this.classList.remove('hover');
+            this.classList.remove('hover');
     });
 }
 
@@ -138,7 +139,7 @@ function playNote(note) {
     oscillator.start(audioContext.currentTime);
     oscillators[note] = oscillator;
 
-     activateButton(note);
+    activateButton(note);
 }
 
 function stopNote(note) {
@@ -153,15 +154,15 @@ function stopNote(note) {
 
 function getFrequency(note) {
     const frequencies = {
-      'C4': 261.63,
-      'D4': 293.66,
-      'E4': 329.63,
-      'F4': 349.23,
-      'G4': 392.00,
-      'A4': 440.00,
-      'B4': 493.88
+        'C4': 261.63,
+        'D4': 293.66,
+        'E4': 329.63,
+        'F4': 349.23,
+        'G4': 392.00,
+        'A4': 440.00,
+        'B4': 493.88
     };
-    return frequencies[note];
+        return frequencies[note];
 }
 
 let currentEditingNote = null;
@@ -176,7 +177,7 @@ function showEditInput(note, buttonElement) {
     editContainer.style.top = (rect.bottom + 20) + 'px';
     editInput.value = '';
     editInput.focus();
-    
+            
     const currentKey = noteToKeyMap[note];
     const keyDisplay = currentKey.replace('Key', '');
     editInput.placeholder = `Current: ${keyDisplay}. press the new key`;
@@ -197,18 +198,18 @@ function updateKeyBinding(note, newKey) {
     if (oldKey) {
         delete keyToNoteMap[oldKey];
     }
-    
+            
     keyToNoteMap[newKey] = note;
     noteToKeyMap[note] = newKey;
-    
+            
     const button = document.querySelector(`[data-note="${note}"]`);
     if (button) {
         button.setAttribute('data-key', newKey);
     }
-    
+            
     const displayKey = newKey.replace('Key', '');
     button.querySelector('span').textContent = displayKey;
-    
+            
     return true;
 }
 
@@ -219,7 +220,7 @@ editInput.addEventListener('keydown', function(event) {
         if (newKey && currentEditingNote) {
             const keyCode = 'Key' + newKey;
             if (updateKeyBinding(currentEditingNote, keyCode)) {
-                hideEditInput();
+                        hideEditInput();
             }
         }
     } else if (event.key === 'Escape') {
@@ -240,11 +241,11 @@ keyA.addEventListener('mousedown', function() {
 });
 
 keyA.addEventListener('mouseup', function() {
-    stopNote('C4');
+            stopNote('C4');
 });
 
 keyS.addEventListener('mousedown', function() {
-    if (!editContainer.style.display !== 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('D4');
     }
 });
@@ -254,7 +255,7 @@ keyS.addEventListener('mouseup', function() {
 });
 
 keyD.addEventListener('mousedown', function() {
-    if (!editContainer.style.display !== 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('E4');
     }
 });
@@ -264,7 +265,7 @@ keyD.addEventListener('mouseup', function() {
 });
 
 keyF.addEventListener('mousedown', function() {
-    if (!editContainer.style.display !== 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('F4');
     }
 });
@@ -274,7 +275,7 @@ keyF.addEventListener('mouseup', function() {
 });
 
 keyG.addEventListener('mousedown', function() {
-    if (!editContainer.style.display !== 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('G4');
     }
 });
@@ -284,7 +285,7 @@ keyG.addEventListener('mouseup', function() {
 });
 
 keyH.addEventListener('mousedown', function() {
-    if (!editContainer.style.display !== 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('A4');
     }
 });
@@ -294,7 +295,7 @@ keyH.addEventListener('mouseup', function() {
 });
 
 keyJ.addEventListener('mousedown', function() {
-    if (!editContainer.style.display !== 'block') {
+    if (editContainer.style.display !== 'block') {
         playNote('B4');
     }
 });
@@ -306,7 +307,7 @@ keyJ.addEventListener('mouseup', function() {
 keys.forEach(button => {
     const editIcon = button.querySelector('.edit-icon');
     const note = button.getAttribute('data-note');
-    
+            
     editIcon.addEventListener('click', function(event) {
         event.stopPropagation();
         showEditInput(note, button);
@@ -315,10 +316,15 @@ keys.forEach(button => {
 
 keys.forEach(addHoverEffect);
 
-document.addEventListener('keydown', function(event) {
-    if (editContainer.style.display === 'block') {
+ document.addEventListener('keydown', function(event) {
+    if (event.target.tagName === 'INPUT') {
+        return;
+            }
+            
+    if (editContainer.style.display === 'block' || isPlayingSequence) {
         return;
     }
+            
     const note = keyToNoteMap[event.code];
     if (note && !oscillators[note]) {
         playNote(note);
@@ -326,10 +332,14 @@ document.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('keyup', function(event) {
-    if (editContainer.style.display === 'block') {
+    if (event.target.tagName === 'INPUT') {
         return;
     }
-    
+            
+    if (editContainer.style.display === 'block' || isPlayingSequence) {
+        return;
+    }
+            
     const note = keyToNoteMap[event.code];
     if (note) {
         stopNote(note);
@@ -360,9 +370,6 @@ playSequenceBtn.className = "play-sequence-btn";
 playSequenceBtn.textContent = "Play Sequence";
 sequenceContainer.appendChild(playSequenceBtn);
 
-let isPlayingSequence = false;
-let sequenceTimeout = null;
-
 function getCharToNoteMap() {
     const charMap = {};
     Object.keys(keyToNoteMap).forEach(key => {
@@ -372,15 +379,10 @@ function getCharToNoteMap() {
     return charMap;
 }
 
-function isValidKeyChar(char) {
-    const charMap = getCharToNoteMap();
-    return char.toUpperCase() in charMap;
-}
-
 function filterSequenceInput(input) {
     const charMap = getCharToNoteMap();
     const validChars = Object.keys(charMap);
-    
+            
     return input
         .toUpperCase()
         .split('')
@@ -398,73 +400,70 @@ sequenceInput.addEventListener('input', function() {
 
 function playSequence() {
     if (isPlayingSequence) return;
-    
+            
     const sequence = sequenceInput.value.toUpperCase();
     if (!sequence) return;
-    
+            
     isPlayingSequence = true;
     disableInterface(true);
-    
+            
     const charMap = getCharToNoteMap();
     const notes = sequence.split('').map(char => charMap[char]);
-    
+            
     let index = 0;
-    
+            
     function playNextNote() {
         if (index >= notes.length) {
             isPlayingSequence = false;
             disableInterface(false);
             return;
         }
-        
+                
         const note = notes[index];
         playNote(note);
-        
+                
         setTimeout(() => {
             stopNote(note);
         }, 300);
-        
+                
         index++;
-        
+                
         sequenceTimeout = setTimeout(playNextNote, 500);
-    }
-    
-    playNextNote();
-}
-
-function disableInterface(disabled) {
-    
-    sequenceInput.disabled = disabled;
-    
-  
-    playSequenceBtn.disabled = disabled;
-
-    keys.forEach(key => {
-        if (disabled) {
-            key.style.pointerEvents = 'none';
-            key.classList.add('disabled');
-        } else {
-            key.style.pointerEvents = 'auto';
-            key.classList.remove('disabled');
         }
-    });
-
-document.querySelectorAll('.edit-icon').forEach(icon => {
-        if (disabled) {
-            icon.style.pointerEvents = 'none';
-            icon.classList.add('disabled');
-        } else {
-            icon.style.pointerEvents = 'auto';
-            icon.classList.remove('disabled');
-        }
-});
-
-if (disabled) {
-        document.body.classList.add('sequence-playing');
-    } else {
-        document.body.classList.remove('sequence-playing');
+            
+        playNextNote();
     }
-}
+
+    function disableInterface(disabled) {
+        sequenceInput.disabled = disabled;
+        playSequenceBtn.disabled = disabled;
+
+        keys.forEach(key => {
+            if (disabled) {
+                key.style.pointerEvents = 'none';
+                key.classList.add('disabled');
+            } else {
+                key.style.pointerEvents = 'auto';
+                key.classList.remove('disabled');
+            }
+        });
+
+        document.querySelectorAll('.edit-icon').forEach(icon => {
+            if (disabled) {
+                icon.style.pointerEvents = 'none';
+                icon.classList.add('disabled');
+            } else {
+                icon.style.pointerEvents = 'auto';
+                icon.classList.remove('disabled');
+            }
+        });
+
+        if (disabled) {
+            document.body.classList.add('sequence-playing');
+        } else {
+            document.body.classList.remove('sequence-playing');
+        }
+    }
 
 playSequenceBtn.addEventListener('click', playSequence);
 
@@ -485,11 +484,13 @@ function stopSequence() {
         clearTimeout(sequenceTimeout);
         sequenceTimeout = null;
     }
-    
+            
     Object.keys(oscillators).forEach(note => {
         stopNote(note);
     });
-    
+            
     isPlayingSequence = false;
     disableInterface(false);
 }
+
+
